@@ -22,3 +22,17 @@ export const getCourseById = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const createCourse = async (req, res) => {
+  try {
+    const { name, teacher_id: teacherId } = req.body;
+    const course = await coursesRepository.createCourse(name, teacherId);
+    res.status(201).json(course);
+  } catch (err) {
+    console.log(err);
+    if (err.code === "23503") {
+      return res.status(400).json({ error: "Invalid teacher_id" });
+    }
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

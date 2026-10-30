@@ -5,3 +5,4 @@ export const courseRouter = express.Router();
 
 courseRouter.get("/", coursesController.getAllCourses);
 courseRouter.get("/:id", coursesController.getCourseById);
+courseRouter.post("/", coursesController.createCourse);

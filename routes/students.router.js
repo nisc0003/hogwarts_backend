@@ -5,3 +5,4 @@ export const studentRouter = express.Router();
 
 studentRouter.get("/", studentsController.getAllStudents);
 studentRouter.get("/:id", studentsController.getStudentById);
+studentRouter.post("/", studentsController.createStudent);

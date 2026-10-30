@@ -22,3 +22,17 @@ export const getTeacherById = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const createTeacher = async (req, res) => {
+  try {
+    const { name, house_id: houseId } = req.body;
+    const teacher = await teachersRepository.createTeacher(name, houseId);
+    res.status(201).json(teacher);
+  } catch (err) {
+    console.log(err);
+    if (err.code === "23503") {
+      return res.status(400).json({ error: "Invalid houseId" });
+    }
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
