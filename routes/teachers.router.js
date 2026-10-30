@@ -4,3 +4,4 @@ import * as teachersController from "../controllers/teachers.controller.js";
 export const teacherRouter = express.Router();
 
 teacherRouter.get("/", teachersController.getAllTeachers);
+teacherRouter.get("/:id", teachersController.getTeacherById);
