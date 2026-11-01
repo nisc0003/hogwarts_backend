@@ -17,3 +17,16 @@ export async function createCourse(name, teacherId) {
   );
   return result.rows[0];
 }
+
+export async function updateCourse(id, name, teacherId) {
+  const result = await pool.query(
+    "UPDATE courses SET name = $1, teacher_id = $2 WHERE id = $3 RETURNING *",
+    [name, teacherId, id],
+  );
+  return result.rows[0];
+}
+
+export async function deleteCourse(id) {
+  const result = await pool.query("DELETE FROM courses WHERE id = $1", [id]);
+  return result.rowCount;
+}

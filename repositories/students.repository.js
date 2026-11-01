@@ -17,3 +17,16 @@ export async function createStudent(name, semester, houseId) {
   );
   return result.rows[0];
 }
+
+export async function updateStudent(id, name, semester, houseId) {
+  const result = await pool.query(
+    "UPDATE students SET name = $1, semester = $2, house_id = $3 WHERE id = $4 RETURNING *",
+    [name, semester, houseId, id],
+  );
+  return result.rows[0];
+}
+
+export async function deleteStudent(id) {
+  const result = await pool.query("DELETE FROM students WHERE id = $1", [id]);
+  return result.rowCount;
+}
