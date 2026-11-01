@@ -14,7 +14,7 @@ http:
     data: |-
       {
         "name": "Advanced Herbology",
-        "teacher_id": 4
+        "teacher_id": 1
       }
   auth: inherit
 

@@ -10,8 +10,8 @@ http:
     type: json
     data: |-
       {
-        "name": "Harry potter",
-        "semester":"1",
+        "name": "Neville Longbottom",
+        "semester": 1,
         "house_id": 2
       }
   auth: inherit
