@@ -30,3 +30,41 @@ export async function deleteCourse(id) {
   const result = await pool.query("DELETE FROM courses WHERE id = $1", [id]);
   return result.rowCount;
 }
+
+export async function updateCourseTeacher(id, teacherId) {
+  const result = await pool.query(
+    "UPDATE courses SET teacher_id = $1 WHERE id = $2 RETURNING *",
+    [teacherId, id],
+  );
+  return result.rows[0];
+}
+
+export async function getCourseStudents(courseId) {
+  const result = await pool.query(
+    `SELECT s.*
+     FROM students s
+     INNER JOIN course_students cs ON cs.student_id = s.id
+     WHERE cs.course_id = $1
+     ORDER BY s.id`,
+    [courseId],
+  );
+  return result.rows;
+}
+
+export async function addStudentToCourse(courseId, studentId) {
+  const result = await pool.query(
+    `INSERT INTO course_students (course_id, student_id)
+     VALUES ($1, $2)
+     RETURNING course_id, student_id`,
+    [courseId, studentId],
+  );
+  return result.rows[0];
+}
+
+export async function removeStudentFromCourse(courseId, studentId) {
+  const result = await pool.query(
+    "DELETE FROM course_students WHERE course_id = $1 AND student_id = $2",
+    [courseId, studentId],
+  );
+  return result.rowCount;
+}
